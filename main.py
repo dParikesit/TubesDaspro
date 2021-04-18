@@ -1,5 +1,5 @@
-from login import login
-
+from register import *
+from login import *
 # Bikin variabel buat storing data
 choice = ''
 user=[]
@@ -9,7 +9,7 @@ gadget_return = []
 consumable = []
 consumable_history = []
 user_now = {
-  "id":'',
+  "id":-1,
   "role":'',
 }
 
@@ -86,10 +86,26 @@ def save_data(pre_datas, path):
 # Save Data
 ''' save_data(pre_save_data(consumables), './file_csv/consumable.csv') '''
 
-load_user(user, './file_csv/user.csv')
-user_now['id'], user_now['role'] = login(user, input('Masukan username: '), input('Masukan password: '))
+def main():
+  print('Halo')
+  load_user(user, './file_csv/user.csv')
 
-while (user_now['id'] == ''):
+  print(len(user))
   user_now['id'], user_now['role'] = login(user, input('Masukan username: '), input('Masukan password: '))
 
-print(user_now['role'])
+  while (user_now['id'] == -1 or user_now['role'] == ''):
+    user_now['id'], user_now['role'] = login(user, input('Masukan username: '), input('Masukan password: '))
+
+""" choice = input()
+while choice != 'exit':
+  if choice == 'register':
+    if user_now['role'] == 'User':
+      print('Anda tidak dapat membuat user')
+      choice = input()
+    else:
+      nama,username,password,alamat = register() """
+
+if __name__ == "__main__":
+  main()
+else:
+  print('Hah?')
