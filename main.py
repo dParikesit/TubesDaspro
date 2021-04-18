@@ -1,11 +1,15 @@
+from login import login
+
 # Bikin variabel buat storing data
-consumables = []
+choice = ''
+user=[]
+gadget=[]
 gadget_borrow = []
 gadget_return = []
-gadget = []
-users=[]
+consumable = []
+consumable_history = []
 user_now = {
-  "name":'',
+  "id":'',
   "role":'',
 }
 
@@ -21,6 +25,12 @@ def is_float(n):
     float(n)
     return True
   except ValueError:
+    return False
+
+def isAdmin(role):
+  if role=='Admin':
+    return True
+  else:
     return False
 
 def load_user(datas, path):
@@ -73,13 +83,13 @@ def save_data(pre_datas, path):
   f.write(pre_datas)
   f.close()
 
-# Load data
-load_user(users, './file_csv/user.csv')
-
-# Akses Data
-
-
 # Save Data
 ''' save_data(pre_save_data(consumables), './file_csv/consumable.csv') '''
 
+load_user(user, './file_csv/user.csv')
+user_now['id'], user_now['role'] = login(user, input('Masukan username: '), input('Masukan password: '))
 
+while (user_now['id'] == ''):
+  user_now['id'], user_now['role'] = login(user, input('Masukan username: '), input('Masukan password: '))
+
+print(user_now['role'])
