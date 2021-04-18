@@ -1,5 +1,6 @@
 from register import *
 from login import *
+
 # Bikin variabel buat storing data
 choice = ''
 user=[]
@@ -86,26 +87,29 @@ def save_data(pre_datas, path):
 # Save Data
 ''' save_data(pre_save_data(consumables), './file_csv/consumable.csv') '''
 
-def main():
-  print('Halo')
-  load_user(user, './file_csv/user.csv')
+load_user(user, './file_csv/user.csv')
 
-  print(len(user))
+user_now['id'], user_now['role'] = login(user, input('Masukan username: '), input('Masukan password: '))
+while (user_now['id'] == -1 or user_now['role'] == ''):
   user_now['id'], user_now['role'] = login(user, input('Masukan username: '), input('Masukan password: '))
 
-  while (user_now['id'] == -1 or user_now['role'] == ''):
-    user_now['id'], user_now['role'] = login(user, input('Masukan username: '), input('Masukan password: '))
+print('Halo', user_now['id'])
 
-""" choice = input()
+choice = input('Masukan pilihan: ')
 while choice != 'exit':
   if choice == 'register':
     if user_now['role'] == 'User':
       print('Anda tidak dapat membuat user')
-      choice = input()
-    else:
-      nama,username,password,alamat = register() """
+      choice = input('Masukan pilihan: ')
+    elif user_now['role'] == 'Admin':
+      nama,username,password,alamat = register()
+      id = (len(user))
+      role = 'User'
+      user.append([id, username, nama, alamat, password, role])
+      print('User telah ditambah')
+      choice = input('Masukan pilihan: ')
+  else:
+    choice = input('Masukan pilihan: ')
 
-if __name__ == "__main__":
-  main()
-else:
-  print('Hah?')
+save_data(pre_save_data(user), './file_csv/user.csv')
+

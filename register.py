@@ -7,5 +7,3 @@ def register():
   alamat = input('Masukan alamat: ')
 
   return nama,username,password,alamat
-
-print(register())
