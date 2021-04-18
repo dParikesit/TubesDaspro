@@ -1,6 +1,13 @@
 # Bikin variabel buat storing data
-users=[]
 consumables = []
+gadget_borrow = []
+gadget_return = []
+gadget = []
+users=[]
+user_now = {
+  "name":'',
+  "role":'',
+}
 
 def is_integer(n):
   try:
@@ -67,10 +74,12 @@ def save_data(pre_datas, path):
   f.close()
 
 # Load data
-load_user(consumables, './file_csv/consumable.csv')
+load_user(users, './file_csv/user.csv')
 
 # Akses Data
-print(consumables[1][3])
+
 
 # Save Data
-save_data(pre_save_data(consumables), './file_csv/consumable.csv')
+''' save_data(pre_save_data(consumables), './file_csv/consumable.csv') '''
+
+
