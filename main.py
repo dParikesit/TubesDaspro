@@ -1,5 +1,7 @@
 from register import *
-from login import *
+from login import * 
+
+
 
 # Bikin variabel buat storing data
 choice = ''
@@ -34,7 +36,7 @@ def isAdmin(role):
   else:
     return False
 
-def load_user(datas, path):
+def load_data(datas, path):
   f = open(path, 'r')
   raw_lines = f.readlines()
   f.close()
@@ -87,7 +89,7 @@ def save_data(pre_datas, path):
 # Save Data
 ''' save_data(pre_save_data(consumables), './file_csv/consumable.csv') '''
 
-load_user(user, './file_csv/user.csv')
+load_data(user, './file_csv/user.csv')
 
 user_now['id'], user_now['role'] = login(user, input('Masukan username: '), input('Masukan password: '))
 while (user_now['id'] == -1 or user_now['role'] == ''):
