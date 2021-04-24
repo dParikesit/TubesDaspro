@@ -1,6 +1,25 @@
-1. Ganti index jadi kata -> males (ini nanti malah tambah ribet, mending pake angka aja)
-2. Role validation -> Done
-3. Tambah is datetime
-4. Hashing -> DONE
-5. Argparse load
-6. Save data -> DONE
+Dimas
+1. Tambah is datetime
+2. Argparse load
+3. Pop header
+
+Asro
+1. Sorting
+2. Conditional
+3. Tampilkan 5 more
+
+Vera
+1. Sorting by tahun
+
+Rachmad
+1. unique = list(set(id))
+
+PERUBAHAN!!!
+
+1. Datetime
+tanggal = history[5]
+tanggal.month
+
+2. Array[0] diilangin
+
+3. Save gausah pake pre save data

@@ -13,6 +13,12 @@ gadget_borrow = []
 gadget_return = []
 consumable = []
 consumable_history = []
+header_user = []
+header_gadget = []
+header_gadget_borrow = []
+header_gadget_return = []
+header_consumable = []
+header_consumable_history = []
 user_now = {
   "id":-1,
   "role":'',
@@ -21,7 +27,7 @@ user_now = {
 # Save Data
 ''' save_data(pre_save_data(consumables), './file_csv/consumable.csv') '''
 
-batch_load(user, gadget, gadget_borrow, gadget_return, consumable, consumable_history)
+batch_load(user, gadget, gadget_borrow, gadget_return, consumable, consumable_history, header_user, header_gadget, header_gadget_borrow, header_gadget_return, header_consumable, header_consumable_history)
 
 user_now['id'], user_now['role'] = login(user, input('Masukan username: '), input('Masukan password: '))
 while (user_now['id'] == -1 or user_now['role'] == ''):

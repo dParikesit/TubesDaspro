@@ -5,5 +5,4 @@ def exit(user, gadget, gadget_borrow, gadget_return, consumable, consumable_hist
     if Pilihan == "Y" or Pilihan == "y" :
       batch_save(user, gadget, gadget_borrow, gadget_return, consumable, consumable_history)
     else :
-        # ini isi apa yaaa
         pass

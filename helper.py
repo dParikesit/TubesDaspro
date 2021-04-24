@@ -1,3 +1,5 @@
+from datetime import datetime
+
 def is_integer(n):
   try:
     int(n)
@@ -17,3 +19,11 @@ def is_Admin(role):
     return True
   else:
     return False
+
+def is_datetime(date):
+  try:
+    datetime.strptime(date, '%d/%m/%Y')
+    return True
+  except ValueError:
+    return False
+    
