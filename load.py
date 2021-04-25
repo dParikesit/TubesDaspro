@@ -1,5 +1,7 @@
 from datetime import datetime
 from helper import is_integer, is_float, is_datetime
+import argparse
+from os import path
 
 def load_data(datas, header_datas, path):
   f = open(path, 'r')
@@ -45,10 +47,20 @@ def post_load_data(datas, raw_lines):
     # Memasukkan ke variabel
     datas.append(arr)
 
-def batch_load(user, gadget, gadget_borrow, gadget_return, consumable, consumable_history, header_user, header_gadget, header_gadget_borrow, header_gadget_return, header_consumable, header_consumable_history):
+def batch_load(path, user, gadget, gadget_borrow, gadget_return, consumable, consumable_history, header_user, header_gadget, header_gadget_borrow, header_gadget_return, header_consumable, header_consumable_history):
   load_data(user, header_user, './file_csv/user.csv')
   load_data(gadget, header_gadget, './file_csv/gadget.csv')
   load_data(gadget_borrow, header_gadget_borrow, './file_csv/gadget_borrow_history.csv')
   load_data(gadget_return, header_gadget_return, './file_csv/gadget_return_history.csv')
   load_data(consumable, header_consumable, './file_csv/consumable.csv')
   load_data(consumable_history, header_consumable_history, './file_csv/consumable_history.csv')
+
+def parser():
+  parser = argparse.ArgumentParser()
+  parser.add_argument('path')
+  args = parser.parse_args()
+  return args
+
+def path_loader(path_link):
+  if (path.isdir(path_link)):
+    return batch_load()

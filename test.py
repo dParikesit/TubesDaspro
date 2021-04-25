@@ -1,7 +1,8 @@
 from load import load_data
 from save import save_data
 
-''' gadget = []
+
+gadget = []
 load_data(gadget, './file_csv/gadget.csv')
 gadget.pop(0) # Nanti gausah ditulis karena bakal masuk ke fungsi load data
 
@@ -13,12 +14,14 @@ for data in gadget:
 
 id = ['G1', 'G2', 'G3', 'G1']
 unique_id = list(set(id))
-print(unique_id) '''
+print(unique_id) 
 
 consumable_history = []
 header_consumable_history = []
 
 load_data(consumable_history, header_consumable_history, './file_csv/consumable_history.csv')
+
+print(consumable_history)
 
 # Akses tanggal bulan tahun
 from datetime import date

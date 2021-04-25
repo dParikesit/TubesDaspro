@@ -1,4 +1,4 @@
-﻿id;id_peminjam;id_gadget;tanggal_peminjaman;jumlah
-1;1;G1;12/03/2009;1
-2;2;G6;21/11/2017;4
-3;3;G90;22/11/2019;2
+id;id_peminjam;id_gadget;tanggal_peminjaman;jumlah;is_returned
+1;1;G1;12/03/2009;1;True
+2;2;G6;21/11/2017;4;False
+3;3;G90;22/11/2019;2;True
