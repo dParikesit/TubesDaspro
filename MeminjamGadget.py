@@ -25,34 +25,15 @@ def validasi_tanggal(Tanggal):
     except ValueError :
       return False
 
-def validasi_riwayat(id_user, Item) :
-    found = 0
-    Jumlah_pinjam = 0
-    Jumlah_kembali = 0
-    for i in range (len(gadget_borrow)) :
-      if gadget_borrow[i][1]== id_user and gadget_borrow[i][2] == Item:
-         found = found + 1
-         Jumlah_pinjam = Jumlah_pinjam + (gadget_borrow[i][4])
-
-    for i in range (len(gadget_return)) :
-      if gadget_return[i][1]== id_user and gadget_return[i][1] == Item :
-         Jumlah_kembali = Jumlah_kembali + (gadget_return[i][4])
-
-    if found > 0 :
-        if Jumlah_pinjam == Jumlah_kembali :
-            return True
-        else :
-            return False
-    else :
-        return True
-
 def write_gadget_borrow_history(Item, Tanggal, Jumlah, id_user) :
-    arr = [0 for i in range (5)]
+    Tanggal_datetime = datetime.strptime(Tanggal, '%d/%m/%Y')
+    arr = [0 for i in range (6)]
     arr[0] = gadget_borrow[len(gadget_borrow)][0] + 1
     arr[1] = id_user
     arr[2] = Item
-    arr[3] = Tanggal
+    arr[3] = Tanggal_datetime
     arr[4] = Jumlah
+    arr[5] = False
     gadget_borrow.append(arr)
 
 def validasi_role(user_now) :
@@ -78,34 +59,32 @@ def validasi_input(Item,Tanggal,Jumlah) :
 def pinjam(user_now) :
   id_user = user_now['id']
   if validasi_role(user_now) :
-    Item = str(input("Masukkan ID item : "))
-    Tanggal = str(input("Tanggal peminjaman : "))
-    Jumlah = int(input("Jumlah peminjaman : "))
-
-    while (not(validasi_input)) :
-      print("Masukan tidak sesuai. Ulangi!")
-      Item = input("Masukkan ID item : ")
+      Item = str(input("Masukkan ID item : "))
       Tanggal = str(input("Tanggal peminjaman : "))
       Jumlah = int(input("Jumlah peminjaman : "))
 
-    IdItem = 0
-    # Mengecek apakah gadget sudah di pinjam
-    if validasi_riwayat(id_user, Item) :
-        # Mencari Index
-        for i in range (len(gadget)) :
-            if gadget[i][0] == Item :
-                IdItem = i
+      while (not(validasi_input)) :
+        print("Masukan tidak sesuai. Ulangi!")
+        Item = input("Masukkan ID item : ")
+        Tanggal = str(input("Tanggal peminjaman : "))
+        Jumlah = int(input("Jumlah peminjaman : "))
 
-        if ((gadget[IdItem][3]) >= Jumlah) :
-            print("Item", gadget[IdItem][1], "(x"+str(Jumlah)+") berhasil dipinjam!")
-            (gadget[IdItem][3]) = (gadget[IdItem][3]) - Jumlah
+      IdItem = 0
+      for i in range (len(gadget)) :
+          if gadget[i][0] == Item :
+              IdItem = i
 
-            write_gadget_borrow_history(Item, Tanggal, Jumlah, id_user)
-        else :
-            print("Gadget", gadget[IdItem][1], "hanya tersisa", gadget[IdItem][3], "buah.")
+      if gadget[IdItem][5] == True :
+          if ((gadget[IdItem][3]) >= Jumlah) :
+              print("Item", gadget[IdItem][1], "(x"+str(Jumlah)+") berhasil dipinjam!")
+              (gadget[IdItem][3]) = (gadget[IdItem][3]) - Jumlah
 
-    else :
-        print("Gadget", gadget[IdItem][1], "sudah Anda dipinjam,")
-        print("Anda tidak dapat meminjam lagi pada saat yang sama")
+              write_gadget_borrow_history(Item, Tanggal, Jumlah, id_user)
+          else :
+              print("Gadget", gadget[IdItem][1], "hanya tersisa", gadget[IdItem][3], "buah.")
+
+      else :
+          print("Gadget", gadget[IdItem][1], "sudah Anda dipinjam,")
+          print("Anda tidak dapat meminjam lagi pada saat yang sama")
   else :
     print("Anda tidak dapat mengakses bagian ini")

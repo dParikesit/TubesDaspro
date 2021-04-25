@@ -47,20 +47,23 @@ def post_load_data(datas, raw_lines):
     # Memasukkan ke variabel
     datas.append(arr)
 
-def batch_load(path, user, gadget, gadget_borrow, gadget_return, consumable, consumable_history, header_user, header_gadget, header_gadget_borrow, header_gadget_return, header_consumable, header_consumable_history):
-  load_data(user, header_user, './file_csv/user.csv')
-  load_data(gadget, header_gadget, './file_csv/gadget.csv')
-  load_data(gadget_borrow, header_gadget_borrow, './file_csv/gadget_borrow_history.csv')
-  load_data(gadget_return, header_gadget_return, './file_csv/gadget_return_history.csv')
-  load_data(consumable, header_consumable, './file_csv/consumable.csv')
-  load_data(consumable_history, header_consumable_history, './file_csv/consumable_history.csv')
+def batch_load(path_link, user, gadget, gadget_borrow, gadget_return, consumable, consumable_history, header_user, header_gadget, header_gadget_borrow, header_gadget_return, header_consumable, header_consumable_history):
+  load_data(user, header_user, './'+path_link+'/user.csv')
+  load_data(gadget, header_gadget, './'+path_link+'/gadget.csv')
+  load_data(gadget_borrow, header_gadget_borrow, './'+path_link+'/gadget_borrow_history.csv')
+  load_data(gadget_return, header_gadget_return, './'+path_link+'/gadget_return_history.csv')
+  load_data(consumable, header_consumable, './'+path_link+'/consumable.csv')
+  load_data(consumable_history, header_consumable_history, './'+path_link+'/consumable_history.csv')
 
 def parser():
   parser = argparse.ArgumentParser()
-  parser.add_argument('path')
+  parser.add_argument('path_link')
   args = parser.parse_args()
-  return args
+
+  return (args.path_link)
 
 def path_loader(path_link):
   if (path.isdir(path_link)):
-    return batch_load()
+    return True
+  else:
+    return False

@@ -16,11 +16,12 @@ def validasi_item(Item) :
       return False
 
 def write_consumable_history(Item, Tanggal, Jumlah, id_user) :
+    Tanggal_datetime = datetime.strptime(Tanggal, '%d/%m/%Y')
     arr = [0 for i in range (5)]
     arr[0] = (consumable_history[len(consumable_history)][0]) + 1
     arr[1] = id_user
     arr[2] = Item
-    arr[3] = Tanggal
+    arr[3] = Tanggal_datetime
     arr[4] = Jumlah
     consumable_history.append(arr)
 
