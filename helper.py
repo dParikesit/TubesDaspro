@@ -14,8 +14,8 @@ def is_float(n):
   except ValueError:
     return False
 
-def is_Admin(role):
-  if role=='Admin':
+def is_Admin(user_now):
+  if user_now['role'] =='Admin':
     return True
   else:
     return False

@@ -1,27 +1,39 @@
 from load import load_data
-import datetime
+import datetime 
 
 consumable = []
 consumable_history = []
 header_consumable = []
 header_consumable_history = []
 
-load_data(consumable, header_consumable, './file_csv/gadget.csv')
-load_data(consumable_history, header_consumable_history, './file_csv/gadget_borrow_history.csv')
+load_data(consumable, header_consumable, './file_csv/consumable.csv')
+load_data(consumable_history, header_consumable_history, './file_csv/consumable_history.csv')
 
 def validasi_item(Item) :
-    if Item[0] == "C" :
+    found = False
+    for i in range (len(consumable)) :
+      if consumable[i][0] == Item :
+          found = True
+
+    if Item[0] == "C" and found == True :
       return True
     else :
       return False
 
-def write_consumable_history(Item, Tanggal, Jumlah, id_user) :
-    Tanggal_datetime = datetime.strptime(Tanggal, '%d/%m/%Y')
+def write_consumable_history(Item, Tanggal, Jumlah, id_user, id_item) :
+    consumable[id_item][3] = (consumable[id_item][3]) - Jumlah
+    
+    # Menulis riwayat pemakaian consumable
     arr = [0 for i in range (5)]
-    arr[0] = (consumable_history[len(consumable_history)][0]) + 1
+
+    if len(consumable_history) == 1 : 
+        arr[0] = 1
+    else : 
+        arr[0] = consumable_history[len(consumable_history)-1][0] + 1
+  
     arr[1] = id_user
     arr[2] = Item
-    arr[3] = Tanggal_datetime
+    arr[3] = Tanggal #datetime.strptime(Tanggal, '%d/%m/%Y')
     arr[4] = Jumlah
     consumable_history.append(arr)
 
@@ -43,12 +55,24 @@ def validasi_tanggal(Tanggal):
     except ValueError :
       return False
 
-def validasi_input(Item,Tanggal,Jumlah) :
-  if validasi_item(Item) and validasi_tanggal(Tanggal) and validasi_jumlah(Jumlah) :
-      return True
-  else :
-      return False
-
+def pesan_kesalahan(Item, Tanggal, Jumlah) :
+    if (validasi_item(Item)) == False :
+        print('ID item yang Anda masukan tidak ada dalam Inventory')
+        if (validasi_tanggal(Tanggal)) == False :
+            print('Tanggal yang Anda masukan tidak sesuai.')
+            if (validasi_jumlah(Jumlah)) == False :
+                print('Jumlah yang Anda masukan tidak sesuai.')
+        else :
+            if (validasi_jumlah(Jumlah)) == False :
+                print('Jumlah yang Anda masukan tidak sesuai.')
+    else :
+        if (validasi_tanggal(Tanggal)) == False :
+            print('Tanggal yang Anda masukan tidak sesuai.')
+            if (validasi_jumlah(Jumlah)) == False :
+                print('Jumlah yang Anda masukan tidak sesuai.')
+        else :
+            if (validasi_jumlah(Jumlah)) == False :
+                print('Jumlah yang Anda masukan tidak sesuai.')
 # ALGORITMA UTAMA
 
 def minta(user_now) :
@@ -57,33 +81,36 @@ def minta(user_now) :
     Item = str(input("Masukan id item : "))
     Jumlah = int(input("Jumlah : "))
     Tanggal = str(input("Tanggal permintaan :"))
-
-    while (not(validasi_input(Item, Jumlah, Tanggal))) :
-      print("Masukan tidak sesuai. Ulangi!")
+    print()
+    pesan_kesalahan(Item, Tanggal, Jumlah)
+    print()
+    
+    while (not(validasi_item(Item)) or not(validasi_jumlah(Jumlah)) or ((validasi_tanggal(Tanggal)) == False)) :
       Item = str(input("Masukan id item : "))
       Jumlah = int(input("Jumlah : "))
       Tanggal = str(input("Tanggal permintaan :"))
+      print()
+      pesan_kesalahan(Item, Tanggal, Jumlah)
+      print()
 
-    IdItem = 0
+    id_item = 0
     for i in range (len(consumable)) :
         if consumable[i][0] == Item :
-            IdItem = i
+            id_item = i
 
-    if consumable[IdItem][3] >= Jumlah :
-        consumable[IdItem][3] = (consumable[IdItem][3]) - Jumlah
+    if consumable[id_item][3] >= Jumlah :
+        print("Item", consumable[id_item][1], "(x"+str(Jumlah)+") telah berhasil diambil!")
 
-        print("Item", consumable[IdItem][1], "(x"+str(Jumlah)+") telah berhasil diambil!")
+        write_consumable_history(Item, Tanggal, Jumlah, id_user, id_item)
+    elif consumable[id_item][3] == "infinity" :
+        print("Item", consumable[id_item][1], "(x"+str(Jumlah)+") telah berhasil diambil!")
 
-        write_consumable_history(Item, Tanggal, Jumlah, id_user)
-    elif consumable[IdItem][3] == "infinity" :
-        print("Item", consumable[IdItem][1], "(x"+str(Jumlah)+") telah berhasil diambil!")
-
-        write_consumable_history(Item, Tanggal, Jumlah, id_user)
+        write_consumable_history(Item, Tanggal, Jumlah, id_user,id_item)
     else :
-        if consumable[IdItem][3] == 0 :
-            print("Item", consumable[IdItem][1], "telah habis :(.")
+        if consumable[id_item][3] == 0 :
+            print("Item", consumable[id_item][1], "telah habis :(.")
         else :
-            print("Item", consumable[IdItem][1], "hanya tersisa", consumable[IdItem][3], "buah.")
+            print("Item", consumable[id_item][1], "hanya tersisa", consumable[id_item][3], "buah.")
     
   else :
     print("Anda tidak dapat mengakses bagian ini")
