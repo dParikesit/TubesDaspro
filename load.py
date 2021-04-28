@@ -1,5 +1,5 @@
 from datetime import datetime
-from helper import is_integer, is_float, is_datetime
+from helper import is_integer, is_float, is_datetime, is_boolean
 import argparse
 from os import path
 
@@ -37,7 +37,9 @@ def post_load_data(datas, raw_lines):
     
     # Typecasting yang bisa jadi int atau float atau datetime
     for i in range(len(arr)):
-      if is_integer(arr[i]):
+      if is_boolean(arr[i]):
+        arr[i] = eval(arr[i])
+      elif is_integer(arr[i]):
         arr[i]=int(arr[i])
       elif is_float(arr[i]):
         arr[i]=float(arr[i])
@@ -48,13 +50,13 @@ def post_load_data(datas, raw_lines):
     datas.append(arr)
 
 def batch_load(path_link, user, gadget, gadget_borrow, gadget_return, consumable, consumable_history, header_user, header_gadget, header_gadget_borrow, header_gadget_return, header_consumable, header_consumable_history):
-  path_link = './'+path_link
-  load_data(user, header_user, path_link+'/user.csv')
-  load_data(gadget, header_gadget, path_link+'/gadget.csv')
-  load_data(gadget_borrow, header_gadget_borrow, path_link+'/gadget_borrow_history.csv')
-  load_data(gadget_return, header_gadget_return, path_link+'/gadget_return_history.csv')
-  load_data(consumable, header_consumable, path_link+'/consumable.csv')
-  load_data(consumable_history, header_consumable_history, path_link+'/consumable_history.csv')
+  path_link = path_link
+  load_data(user, header_user, path.join(path_link, 'user.csv'))
+  load_data(gadget, header_gadget, path.join(path_link,'gadget.csv'))
+  load_data(gadget_borrow, header_gadget_borrow, path.join(path_link,'gadget_borrow_history.csv'))
+  load_data(gadget_return, header_gadget_return, path.join(path_link,'gadget_return_history.csv'))
+  load_data(consumable, header_consumable, path.join(path_link,'consumable.csv'))
+  load_data(consumable_history, header_consumable_history, path.join(path_link,'consumable_history.csv'))
 
 def parser():
   parser = argparse.ArgumentParser()

@@ -27,3 +27,8 @@ def is_datetime(date):
   except ValueError:
     return False
     
+def is_boolean(string):
+  if string=='True' or string=='False':
+    return True
+  else:
+    return False

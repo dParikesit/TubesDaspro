@@ -1,5 +1,5 @@
 from load import load_data
-import datetime 
+from datetime import datetime 
 
 consumable = []
 consumable_history = []
@@ -20,20 +20,20 @@ def validasi_item(Item) :
     else :
       return False
 
-def write_consumable_history(Item, Tanggal, Jumlah, id_user, id_item) :
+def write_consumable_history(Item, Tanggal, Jumlah, id_user, id_item, consumable, consumable_history) :
     consumable[id_item][3] = (consumable[id_item][3]) - Jumlah
     
     # Menulis riwayat pemakaian consumable
     arr = [0 for i in range (5)]
 
-    if len(consumable_history) == 1 : 
+    if len(consumable_history) == 0 : 
         arr[0] = 1
     else : 
-        arr[0] = consumable_history[len(consumable_history)-1][0] + 1
+        arr[0] = consumable_history[(len(consumable_history)) - 1][0] + 1
   
     arr[1] = id_user
     arr[2] = Item
-    arr[3] = Tanggal #datetime.strptime(Tanggal, '%d/%m/%Y')
+    arr[3] = datetime.strptime(Tanggal, '%d/%m/%Y')
     arr[4] = Jumlah
     consumable_history.append(arr)
 
@@ -51,7 +51,8 @@ def validasi_jumlah(Jumlah) :
 
 def validasi_tanggal(Tanggal):
     try:
-      datetime.datetime.strptime(Tanggal, '%d/%m/%Y')
+      datetime.strptime(Tanggal, '%d/%m/%Y')
+      return True
     except ValueError :
       return False
 
@@ -75,23 +76,23 @@ def pesan_kesalahan(Item, Tanggal, Jumlah) :
                 print('Jumlah yang Anda masukan tidak sesuai.')
 # ALGORITMA UTAMA
 
-def minta(user_now) :
+def minta(user_now, consumable, consumable_history) :
+
   id_user = user_now['id']
+
   if validasi_role(user_now) :
     Item = str(input("Masukan id item : "))
     Jumlah = int(input("Jumlah : "))
     Tanggal = str(input("Tanggal permintaan :"))
     print()
     pesan_kesalahan(Item, Tanggal, Jumlah)
-    print()
-    
-    while (not(validasi_item(Item)) or not(validasi_jumlah(Jumlah)) or ((validasi_tanggal(Tanggal)) == False)) :
+
+    while (not(validasi_item(Item))) or (not(validasi_jumlah(Jumlah))) or (not(validasi_tanggal(Tanggal))) :
       Item = str(input("Masukan id item : "))
       Jumlah = int(input("Jumlah : "))
       Tanggal = str(input("Tanggal permintaan :"))
       print()
       pesan_kesalahan(Item, Tanggal, Jumlah)
-      print()
 
     id_item = 0
     for i in range (len(consumable)) :
@@ -101,11 +102,11 @@ def minta(user_now) :
     if consumable[id_item][3] >= Jumlah :
         print("Item", consumable[id_item][1], "(x"+str(Jumlah)+") telah berhasil diambil!")
 
-        write_consumable_history(Item, Tanggal, Jumlah, id_user, id_item)
+        write_consumable_history(Item, Tanggal, Jumlah, id_user, id_item,consumable, consumable_history)
     elif consumable[id_item][3] == "infinity" :
         print("Item", consumable[id_item][1], "(x"+str(Jumlah)+") telah berhasil diambil!")
 
-        write_consumable_history(Item, Tanggal, Jumlah, id_user,id_item)
+        write_consumable_history(Item, Tanggal, Jumlah, id_user,id_item,  consumable, consumable_history)
     else :
         if consumable[id_item][3] == 0 :
             print("Item", consumable[id_item][1], "telah habis :(.")

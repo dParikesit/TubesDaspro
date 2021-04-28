@@ -21,11 +21,15 @@ def save_data(datas, header_datas, file_path):
   
 
 def save(user, gadget, gadget_borrow, gadget_return, consumable, consumable_history, header_user, header_gadget, header_gadget_borrow, header_gadget_return, header_consumable, header_consumable_history):
-  path_link = './'+(input('Masukkan nama folder penyimpanan: '))
+  folder = (input('Masukkan nama folder penyimpanan: ')) 
+  path_link = './'+ folder
 
   if path.isdir(path_link)==False:
     mkdir(path_link)
 
+  print("Saving...")
+  print("Data telah disimpan pada ", folder, "!")
+  
   save_data(user, header_user, path_link+'/user.csv')
   save_data(gadget, header_gadget, path_link+'/gadget.csv')
   save_data(gadget_borrow, header_gadget_borrow, path_link+'/gadget_borrow_history.csv')
@@ -33,3 +37,4 @@ def save(user, gadget, gadget_borrow, gadget_return, consumable, consumable_hist
   save_data(consumable, header_consumable, path_link+'/consumable.csv')
   save_data(consumable_history, header_consumable_history, path_link+'/consumable_history.csv')
 
+  

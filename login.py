@@ -4,10 +4,12 @@ def login(users, username, password):
   hashed = hash(password)
   id = -1
   role = ''
+  name = ''
 
   for user in users:
     if user[1]==username:
-      id = user[1]
+      id = user[0]
+      name = user[2]
       if user[4]==hashed:
         role = user[5]
   
@@ -16,6 +18,6 @@ def login(users, username, password):
   elif role == '':
     print('Password salah')
   
-  return id, role
+  return id, role, name
 
   
