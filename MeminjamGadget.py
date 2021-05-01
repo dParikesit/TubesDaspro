@@ -80,7 +80,7 @@ def write_gadget_borrow_history(Item, Tanggal, Jumlah, id_user, id_item, gadget_
 
 def pesan_kesalahan(Item, Tanggal, Jumlah) :
     if (validasi_item(Item)) == False :
-        print('ID item yang Anda masukan tidak ada dalam Inventory')
+        print('ID item yang Anda masukan tidak ada dalam Inventory.')
         if (validasi_tanggal(Tanggal)) == False :
             print('Tanggal yang Anda masukan tidak sesuai.')
             if (validasi_jumlah(Jumlah)) == False :
@@ -105,37 +105,30 @@ def pesan_kesalahan(Item, Tanggal, Jumlah) :
 
 def pinjam(user_now, gadget, gadget_borrow) :
   id_user = user_now['id']
-  print(len(gadget_borrow))
   if validasi_role(user_now) :
       Item = input("Masukkan ID item : ")
       Tanggal = str(input("Tanggal peminjaman : "))
       Jumlah = int(input("Jumlah peminjaman : "))
       print()
-      pesan_kesalahan(Item, Tanggal, Jumlah)
+       
+      if (validasi_item(Item)) and (validasi_tanggal(Tanggal)) and (validasi_jumlah(Jumlah)) :
+          id_item = 0
+          for i in range (len(gadget)) :
+              if gadget[i][0] == Item :
+                  id_item = i
 
-      while (not(validasi_item(Item))) or (not(validasi_tanggal(Tanggal))) or (not(validasi_jumlah(Jumlah))) :
-        print()
-        Item = input("Masukkan ID item : ")
-        Tanggal = str(input("Tanggal peminjaman : "))
-        Jumlah = int(input("Jumlah peminjaman : "))
-        print()
-        pesan_kesalahan(Item, Tanggal, Jumlah)
+          if cek_peminjaman(Item) :
+              if ((gadget[id_item][3]) >= Jumlah) :
+                  print("Item", gadget[id_item][1], "(x"+str(Jumlah)+") berhasil dipinjam!")
+                  
+                  write_gadget_borrow_history(Item, Tanggal, Jumlah, id_user, id_item, gadget_borrow, gadget)
+              else :
+                  print("Item", gadget[id_item][1], "hanya tersisa", gadget[id_item][3], "buah.")
 
-      id_item = 0
-      for i in range (len(gadget)) :
-          if gadget[i][0] == Item :
-              id_item = i
-
-      if cek_peminjaman(Item) :
-          if ((gadget[id_item][3]) >= Jumlah) :
-              print("Item", gadget[id_item][1], "(x"+str(Jumlah)+") berhasil dipinjam!")
-              
-              write_gadget_borrow_history(Item, Tanggal, Jumlah, id_user, id_item, gadget_borrow, gadget)
           else :
-              print("Gadget", gadget[id_item][1], "hanya tersisa", gadget[id_item][3], "buah.")
-
+              print("Item", gadget[id_item][1], "sudah Anda pinjam.")
+              print("Anda tidak dapat meminjam lagi pada saat ini")
       else :
-          print("Gadget", gadget[id_item][1], "sudah Anda dipinjam,")
-          print("Anda tidak dapat meminjam lagi pada saat yang sama")
+          pesan_kesalahan(Item, Tanggal, Jumlah)
   else :
-    print("Anda tidak dapat mengakses bagian ini")
+      print("Anda tidak dapat mengakses bagian ini")

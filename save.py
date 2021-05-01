@@ -18,7 +18,6 @@ def save_data(datas, header_datas, file_path):
   f.write(pre_save_data(datas))
   f.close()
     
-  
 
 def save(user, gadget, gadget_borrow, gadget_return, consumable, consumable_history, header_user, header_gadget, header_gadget_borrow, header_gadget_return, header_consumable, header_consumable_history):
   folder = (input('Masukkan nama folder penyimpanan: ')) 

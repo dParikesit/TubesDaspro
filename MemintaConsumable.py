@@ -20,23 +20,6 @@ def validasi_item(Item) :
     else :
       return False
 
-def write_consumable_history(Item, Tanggal, Jumlah, id_user, id_item, consumable, consumable_history) :
-    consumable[id_item][3] = (consumable[id_item][3]) - Jumlah
-    
-    # Menulis riwayat pemakaian consumable
-    arr = [0 for i in range (5)]
-
-    if len(consumable_history) == 0 : 
-        arr[0] = 1
-    else : 
-        arr[0] = consumable_history[(len(consumable_history)) - 1][0] + 1
-  
-    arr[1] = id_user
-    arr[2] = Item
-    arr[3] = datetime.strptime(Tanggal, '%d/%m/%Y')
-    arr[4] = Jumlah
-    consumable_history.append(arr)
-
 def validasi_role(user_now) :
     if user_now['role'] == "User" :
       return True
@@ -55,6 +38,24 @@ def validasi_tanggal(Tanggal):
       return True
     except ValueError :
       return False
+
+def write_consumable_history(Item, Tanggal, Jumlah, id_user, id_item, consumable, consumable_history) :
+    consumable[id_item][3] = (consumable[id_item][3]) - Jumlah
+    
+    # Menulis riwayat pemakaian consumable
+    arr = [0 for i in range (5)]
+
+    if len(consumable_history) == 0 : 
+        arr[0] = 1
+    else : 
+        arr[0] = consumable_history[(len(consumable_history)) - 1][0] + 1
+  
+    arr[1] = id_user
+    arr[2] = Item
+    arr[3] = datetime.strptime(Tanggal, '%d/%m/%Y')
+    arr[4] = Jumlah
+    consumable_history.append(arr)
+
 
 def pesan_kesalahan(Item, Tanggal, Jumlah) :
     if (validasi_item(Item)) == False :
@@ -81,37 +82,28 @@ def minta(user_now, consumable, consumable_history) :
   id_user = user_now['id']
 
   if validasi_role(user_now) :
-    Item = str(input("Masukan id item : "))
-    Jumlah = int(input("Jumlah : "))
-    Tanggal = str(input("Tanggal permintaan :"))
-    print()
-    pesan_kesalahan(Item, Tanggal, Jumlah)
-
-    while (not(validasi_item(Item))) or (not(validasi_jumlah(Jumlah))) or (not(validasi_tanggal(Tanggal))) :
       Item = str(input("Masukan id item : "))
       Jumlah = int(input("Jumlah : "))
       Tanggal = str(input("Tanggal permintaan :"))
       print()
-      pesan_kesalahan(Item, Tanggal, Jumlah)
 
-    id_item = 0
-    for i in range (len(consumable)) :
-        if consumable[i][0] == Item :
-            id_item = i
+      if (validasi_item(Item)) and (validasi_jumlah(Jumlah)) and (validasi_tanggal(Tanggal)) :
+          id_item = 0
+          for i in range (len(consumable)) :
+              if consumable[i][0] == Item :
+                  id_item = i
 
-    if consumable[id_item][3] >= Jumlah :
-        print("Item", consumable[id_item][1], "(x"+str(Jumlah)+") telah berhasil diambil!")
+          if consumable[id_item][3] >= Jumlah :
+              print("Item", consumable[id_item][1], "(x"+str(Jumlah)+") telah berhasil diambil!")
 
-        write_consumable_history(Item, Tanggal, Jumlah, id_user, id_item,consumable, consumable_history)
-    elif consumable[id_item][3] == "infinity" :
-        print("Item", consumable[id_item][1], "(x"+str(Jumlah)+") telah berhasil diambil!")
-
-        write_consumable_history(Item, Tanggal, Jumlah, id_user,id_item,  consumable, consumable_history)
-    else :
-        if consumable[id_item][3] == 0 :
-            print("Item", consumable[id_item][1], "telah habis :(.")
-        else :
-            print("Item", consumable[id_item][1], "hanya tersisa", consumable[id_item][3], "buah.")
+              write_consumable_history(Item, Tanggal, Jumlah, id_user, id_item,consumable, consumable_history)
+          else :
+              if consumable[id_item][3] == 0 :
+                  print("Item", consumable[id_item][1], "telah habis :(.")
+              else :
+                  print("Item", consumable[id_item][1], "hanya tersisa", consumable[id_item][3], "buah.")
+      else :
+          pesan_kesalahan(Item, Tanggal, Jumlah)
     
   else :
-    print("Anda tidak dapat mengakses bagian ini")
+      print("Anda tidak dapat mengakses bagian ini")

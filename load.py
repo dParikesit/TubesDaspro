@@ -2,6 +2,7 @@ from datetime import datetime
 from helper import is_integer, is_float, is_datetime, is_boolean
 import argparse
 from os import path
+import sys
 
 def load_data(datas, header_datas, path):
   f = open(path, 'r')
@@ -15,7 +16,7 @@ def load_data(datas, header_datas, path):
   datas.pop(0)
 
 def post_load_data(datas, raw_lines):
-  lines = [raw_line.replace("\n", "").replace("\ufeff","") for raw_line in raw_lines]
+  lines = [raw_line.replace("\n", "") for raw_line in raw_lines]
   for line in lines:
     # Cek ada berapa kolom pada csv
     panjang=1
@@ -50,7 +51,6 @@ def post_load_data(datas, raw_lines):
     datas.append(arr)
 
 def batch_load(path_link, user, gadget, gadget_borrow, gadget_return, consumable, consumable_history, header_user, header_gadget, header_gadget_borrow, header_gadget_return, header_consumable, header_consumable_history):
-  path_link = path_link
   load_data(user, header_user, path.join(path_link, 'user.csv'))
   load_data(gadget, header_gadget, path.join(path_link,'gadget.csv'))
   load_data(gadget_borrow, header_gadget_borrow, path.join(path_link,'gadget_borrow_history.csv'))
@@ -70,3 +70,16 @@ def path_loader(path_link):
     return True
   else:
     return False
+
+# ALGORITMA UTAMA
+def loader(user, gadget, gadget_borrow, gadget_return,consumable, consumable_history, header_user, header_gadget,header_gadget_borrow, header_gadget_return, header_consumable,header_consumable_history):
+  path_link = parser()
+  if (path_loader(path_link) == True):
+    batch_load(path_link, user, gadget, gadget_borrow, gadget_return, consumable, consumable_history, header_user, header_gadget,  header_gadget_borrow, header_gadget_return, header_consumable,  header_consumable_history)
+
+    print('===== Selamat datang di "Kantong Ajaib" ! =====')
+    print()
+  else:
+    print('Tidak ada nama folder yang diberikan')
+    print('Usage: python kantongajaib.py <nama_folder>')
+    sys.exit()

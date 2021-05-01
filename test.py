@@ -1,92 +1,81 @@
-''' from load import load_data
-from save import save_data
+from load import load_data
+from datetime import datetime
 
-
+user=[]
 gadget = []
-load_data(gadget, './file_csv/gadget.csv')
-gadget.pop(0) # Nanti gausah ditulis karena bakal masuk ke fungsi load data
+gadget_borrow = []
+gadget_return = []
 
+header_user = []
+header_gadget = []
+header_gadget_borrow = []
+header_gadget_return = []
 
-for data in gadget:
-  if data[5]<2000: # data[5] ini maksudnya yang tahun
-    print(data[5])
+load_data(gadget, header_gadget, './file_csv/gadget.csv')
+load_data(gadget_return, header_gadget_return, './file_csv/gadget_return_history.csv')
+load_data(gadget_borrow, header_gadget, './file_csv/gadget_borrow_history.csv')
+load_data(user, header_user, './file_csv/user.csv')
 
+# def validasi_role(user_now) :
+#     if user_now['role'] == "Admin" :
+#       return True
+#     else :
+#       return False
 
-id = ['G1', 'G2', 'G3', 'G1']
-unique_id = list(set(id))
-print(unique_id) 
+gadget_return = sorted(gadget_return, key=lambda x:x[2])
 
-consumable_history = []
-header_consumable_history = []
+###########################################################
 
-load_data(consumable_history, header_consumable_history, './file_csv/consumable_history.csv')
+def cariIdPeminjam(id_peminjaman):
+  id_peminjam = 0
+  for item in gadget_borrow:
+    if item[0]==id_peminjaman:
+      id_peminjam = item[1]
+  
+  return id_peminjam
 
-print(consumable_history)
+def cariNamaPengambil(id_peminjam):
+  nama = ''
+  for item in user:
+    if item[0]==id_peminjam:
+      nama = item[2]
+  
+  return nama
 
-# Akses tanggal bulan tahun
-from datetime import date
-print(consumable_history[0][3].day)
-print(consumable_history[0][3].month)
-print(consumable_history[0][3].year)
+def cariIdGadget(id_peminjaman):
+  id_gadget = 0
+  for item in gadget_borrow:
+    if item[0]==id_peminjaman:
+      id_gadget = item[2]
+  
+  return id_gadget
 
-print(type(consumable_history[0][3].day))
-print(type(consumable_history[0][3].month))
-print(type(consumable_history[0][3].year)) '''
+def cariNamaGadget(id_gadget):
+  nama = ''
+  for item in gadget:
+    if item[0]==id_gadget:
+      nama = item[1]
+  
+  return nama
 
+def tampilinsatu (satu):
+  id_peminjaman = satu[1]
+  nama_pengambil = cariNamaPengambil(cariIdPeminjam(id_peminjaman))
+  nama_gadget = cariNamaGadget(cariIdGadget(id_peminjaman))
+  tanggal = datetime.strftime(satu[2], '%d/%m/%Y')
+  jumlah = satu[3]
 
-''' # RACHMAD
-from datetime import datetime
-tanggal = '01/01/2021'
+  print("ID Peminjaman        : " + str(id_peminjaman))
+  print("Nama Pengambil       : " + nama_pengambil)
+  print("Nama Gadget          : " + nama_gadget)
+  print("Tanggal Pengembalian : " + str(tanggal))
+  print("Jumlah               : " + str(jumlah))
+  print()
 
-arr = [0 for i in range (1)]
+def riwayatkembali():
+  if(len(gadget_return)>=5):
+      while
+  else:
+    for i in range()
 
-def is_datetime(tanggal):
-  try:
-    datetime.strptime(tanggal, '%d/%m/%Y')
-    return True
-  except ValueError:
-    return False
-
-print(is_datetime(tanggal))
-
-tanggal_datetime = datetime.strptime(tanggal, '%d/%m/%Y')
-arr[0] = tanggal_datetime
-print(arr)
-print(arr[0].day) '''
-
-
-from datetime import datetime
-
-arr = [[1, 1, 'G1', '12/03/2009', 1, 'True'], [2, 2, 'G6', '21/11/2017', 4, 'False'], [3, 3, 'G567', '22/11/2018', 2, 'True'], [4, 4, 'G90', '22/11/2020', 2, 'True'], [5, 5, 'G6', '22/11/1980', 2, 'True'], [6, 6, 'G90', '22/11/2201', 2, 'True'], [7, 2, 'G90', '21/11/2019', 2, 'True']]
-
-# def is_datetime(tanggal):
-#   try:
-#     datetime.strptime(tanggal, '%d/%m/%Y')
-#     return True
-#   except ValueError:
-#     return False
-
-# for i in range(len(arr)):
-#   print(arr[i][3])
-#   if is_datetime(arr[i][3]):
-#     arr[i][3] = datetime.strptime(arr[i][3], '%d/%m/%Y')
-
-arr = sorted(arr, key=lambda x: datetime.strptime(x[3], "%d/%m/%Y").strftime("%Y-%m-%d"))
-
-print(arr)
-
-#CONTOH SORTING
-
-#CONTOH 1
-# c_array=[[1, '07/12/2017'], [2, '30/01/2018'],[5,'31/05/2016'], [3, '30/09/2016'], [4,'30/01/2017'], [6, '31/05/2017']]
-
-# c_array = sorted(c_array, key=lambda x: datetime.strptime(x[1], "%d/%m/%Y").strftime("%Y-%m-%d"), reverse = True)
-
-# print(c_array)
-
-#CONTOH 2
-# list = [['G', 10], ['A', 22], ['S', 1], ['P', 14], ['V', 13], ['T', 7], ['C', 0], ['I', 219]]
-
-# list = sorted(lst, key=lambda x: x[1], reverse=True)
-
-# print(list)
+riwayatkembali()

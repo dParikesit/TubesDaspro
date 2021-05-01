@@ -21,15 +21,17 @@ def add_gadget(gadget, ID):
             if jumlah >= 0:
               gadget[i][3] = gadget[i][3] + jumlah
               print(jumlah, gadget[i][1], "berhasil ditambahkan. Stok sekarang:", gadget[i][3])
+              count += 1
             else:
                 hasil = gadget[i][3] + jumlah
                 total = -1*jumlah
                 if(hasil >= 0):
                   gadget[i][3] = hasil
                   print(total, gadget[i][1], "berhasil dibuang. Stok sekarang:", gadget[i][3])
+                  count += 1
                 else:
                     print(total, gadget[i][1], "gagal dibuang karena stok kurang. Stok sekarang:", gadget[i][3])
-            count += 1
+                    count += 1
     if count == 0:
         print("Tidak ada item dengan ID tersebut")
 
@@ -41,15 +43,17 @@ def add_consumable(consumable, ID):
             if jumlah >= 0:
                 consumable[i][3] = consumable[i][3] + jumlah
                 print(jumlah, consumable[i][1], "berhasil ditambahkan. Stok sekarang:", consumable[i][3])
+                count += 1
             else:
                 hasil = consumable[i][3] + jumlah
                 total = -1*jumlah
                 if(hasil >= 0):
                     consumable[i][3] = hasil
                     print(total, consumable[i][1], "berhasil dibuang. Stok sekarang:", consumable[i][3])
+                    count += 1
                 else:
                     print(total, consumable[i][1], "gagal dibuang karena stok kurang. Stok sekarang:", consumable[i][3])
-            count += 1
+                    count += 1
     if count == 0:
         print("Tidak ada item dengan ID tersebut")
 
@@ -58,7 +62,7 @@ def add_consumable(consumable, ID):
 def ubahjumlah(user_now, gadget, consumable) :
   if validasi_role(user_now) :
 
-    ID = input("Masukkan ID item: ")
+    ID = input("Masukkan ID: ")
     s = ID
     list(s)
 
