@@ -1,4 +1,0 @@
-id;id_peminjam;id_gadget;tanggal_peminjaman;jumlah;is_returned
-id;id_peminjam;id_gadget;tanggal_peminjaman;jumlah;is_returned
-1;3;G4;12/09/2001;1;True
-2;3;G1;12/09/2001;1;False

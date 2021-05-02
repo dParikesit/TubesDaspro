@@ -36,7 +36,7 @@ def hapusitem(user_now, gadget, consumable) :
       ID = input("Masukkan ID item: ")
       s = ID
       list(s)
-
+      
       if s[0] != "G" and s[0] != "C":
           print("Tidak ada item dengan ID tersebut")
       else:
