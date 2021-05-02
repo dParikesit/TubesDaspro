@@ -40,6 +40,7 @@ user_now = {
   "name":''
 }
 
+
 def pilihan_program(choice) :
   if choice == 'register' :
       register(user,user_now)

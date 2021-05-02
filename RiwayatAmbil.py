@@ -1,26 +1,18 @@
-from load import load_data
 from datetime import datetime
 
-user=[]
-gadget = []
-consumable_history = []
-gadget_return = []
-consumable = []
-consumable_history = []
+global user
+global gadget
+global gadget_return
+global consumable
+global consumable_history
 
 
-header_user = []
-header_gadget = []
-header_consumable_history = []
-header_gadget_return = []
-header_consumable = []
-header_consumable_history = []
+global header_user
+global header_gadget
+global header_gadget_return
+global header_consumable
+global header_consumable_history
 
-load_data(gadget, header_gadget, './file_csv/gadget.csv')
-load_data(consumable_history, header_consumable_history, './file_csv/consumable_history.csv')
-load_data(gadget_return, header_gadget, './file_csv/gadget_return_history.csv')
-load_data(user, header_user, './file_csv/user.csv')
-load_data(consumable, header_consumable, './file_csv/consumable.csv')
 
 def validasi_role(user_now) :
     if user_now['role'] == "Admin" :
@@ -46,11 +38,11 @@ def riwayatambil(user_now):
                     print("ID Pengambilan        :", consumable_history[z][0])
                     print("Nama Pengambil        :", user[namauser][2])
                     print("Nama Consumable       :", consumable[namaconsumable][1])
-                    print("Tanggal Pengambilan   :", consumable_history[z][3])
+                    print("Tanggal Pengambilan   :", datetime.strftime(consumable_history[z][3], '%d/%m/%Y'))
                     print("Jumlah                :", consumable_history[z][4])
                     
                     print("")
-                    print(z)
+
               z += 1
               nomorlooping = z
               sisalooping = len(consumable_history) - nomorlooping 
@@ -74,11 +66,10 @@ def riwayatambil(user_now):
                                       print("ID Pengambilan       :", consumable_history[nomorlooping][0])
                                       print("Nama Pengambil       :", user[namauser][2])
                                       print("Nama Consumable      :", consumable[namaconsumable][1])
-                                      print("Tanggal Pengambilan  :", consumable_history[nomorlooping][3])
+                                      print("Tanggal Pengambilan  :", datetime.strftime(consumable_history[nomorlooping][3], '%d/%m/%Y'))
                                       print("Jumlah               :", consumable_history[nomorlooping][4])
 
                                       print("")
-                                      print(nomorlooping)
 
                                       nomorlooping += 1
 
@@ -97,7 +88,7 @@ def riwayatambil(user_now):
                                       print("ID Pengambilan       :", consumable_history[nomorlooping][0])
                                       print("Nama Pengambil       :", user[namauser][2] )
                                       print("Nama Consumable      :", consumable[namaconsumable][1])
-                                      print("Tanggal Pengambilan  :", consumable_history[nomorlooping][3])
+                                      print("Tanggal Pengambilan  :", datetime.strftime(consumable_history[nomorlooping][3], '%d/%m/%Y'))
                                       print("Jumlah               :", consumable_history[nomorlooping][4])
                   
                                       nomorlooping += 1
@@ -120,8 +111,8 @@ def riwayatambil(user_now):
                       print("")
                       print("ID Pengambilan        :", consumable_history[z][0])
                       print("Nama Pengambil        :", user[namauser][2] )
-                      print("Nama Consumable       :", gadget[namaconsumable][1])
-                      print("Tanggal Pengambilan   :", consumable_history[z][3])
+                      print("Nama Consumable       :", consumable[namaconsumable][1])
+                      print("Tanggal Pengambilan   :", datetime.strftime(consumable_history[z][3], '%d/%m/%Y'))
                       print("Jumlah                :", consumable_history[z][4])
         print("")
     else :

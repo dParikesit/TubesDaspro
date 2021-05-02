@@ -1,8 +1,5 @@
-from load import load_data
-
-gadget = []
-header_gadget = []
-load_data(gadget, header_gadget,'./file_csv/gadget.csv')
+global gadget
+global header_gadget
 
 def carirarity(gadget) :
   rarity = input("Masukkan rarity: ")
@@ -19,8 +16,4 @@ def carirarity(gadget) :
               print("Jumlah          : ", gadget[i][3])
               print("Rarity          : ", gadget[i][4])
               print("Tahun Ditemukan : ", gadget[i][5],"\n")
-          else:
-            print("Tidak ada data yang ditemukan")
-  else :
-      print("Rarity yang Anda masukkan tidak sesuai.")
             

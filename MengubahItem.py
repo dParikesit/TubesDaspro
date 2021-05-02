@@ -1,11 +1,8 @@
-from load import load_data
+global gadget
+global header_gadget
+global consumable
+global header_consumable
 
-gadget = []
-header_gadget = []
-consumable = []
-header_consumable = []
-load_data(gadget, header_gadget,'./file_csv/gadget.csv')
-load_data(consumable, header_consumable, './file_csv/consumable.csv')
 
 def validasi_role(user_now) :
     if user_now['role'] == "Admin" :

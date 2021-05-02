@@ -1,12 +1,10 @@
-from load import load_data
 from datetime import datetime
 
-gadget=[]
-consumable = []
-header_gadget = []
-header_consumable = []
-load_data(gadget, header_gadget,'./file_csv/gadget.csv')
-load_data(consumable, header_consumable, './file_csv/consumable.csv')
+global gadget
+global consumable
+global header_gadget
+global header_consumable
+
 
 def validasi_role(user_now) :
     if user_now['role'] == "Admin" :

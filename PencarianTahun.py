@@ -1,8 +1,5 @@
-from load import load_data
-
-gadget = []
-header_gadget = []
-load_data(gadget, header_gadget,'./file_csv/gadget.csv')
+global gadget
+global header_gadget
 
 def equal(tahun, gadget):
     count = 0

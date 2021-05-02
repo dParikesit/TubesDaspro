@@ -1,19 +1,13 @@
-from load import load_data
 from datetime import datetime
 
-user = []
-gadget = []
-gadget_borrow = []
-gadget_return = []
-header_user = []
-header_gadget = []
-header_gadget_borrow = []
-header_gadget_return = []
-
-load_data(user, header_user, './file_csv/user.csv')
-load_data(gadget, header_gadget, './file_csv/gadget.csv')
-load_data(gadget_borrow, header_gadget_borrow, './file_csv/gadget_borrow_history.csv')
-load_data(gadget_return, header_gadget, './file_csv/gadget_return_history.csv')
+global user
+global gadget
+global gadget_borrow
+global gadget_return
+global header_user
+global header_gadget
+global header_gadget_borrow
+global header_gadget_return
 
 
 def validasi_item(Item) :
@@ -69,7 +63,8 @@ def write_gadget_borrow_history(Item, Tanggal, Jumlah, id_user, id_item, gadget_
     if len(gadget_borrow) == 0 : 
         arr[0] = 1
     else : 
-        arr[0] = (gadget_borrow[(len(gadget_borrow)) - 1][0]) + 1
+        index = (len(gadget_borrow)) - 1
+        arr[0] = (gadget_borrow[index][0]) + 1
 
     arr[1] = id_user
     arr[2] = Item

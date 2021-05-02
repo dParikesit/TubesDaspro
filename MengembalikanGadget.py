@@ -1,17 +1,12 @@
-from load import load_data
 from datetime import datetime
 
-gadget = []
-gadget_borrow = []
-gadget_return = []
-header_gadget = []
-header_gadget_borrow = []
-header_gadget_return = []
+global gadget
+global gadget_borrow
+global gadget_return
+global header_gadget
+global header_gadget_borrow
+global header_gadget_return
 
-load_data(gadget, header_gadget, './file_csv/gadget.csv')
-load_data(gadget_borrow, header_gadget_borrow,
-          './file_csv/gadget_borrow_history.csv')
-load_data(gadget_return, header_gadget, './file_csv/gadget_return_history.csv')
 
 def validasi_role(user_now):
     if user_now['role'] == "User":
@@ -26,12 +21,13 @@ def validasi_tanggal(Tanggal):
     except ValueError:
         return False
 
-def validasi_jumlah(Jumlah, id_peminjaman):
+def validasi_jumlah(Jumlah, id_peminjaman, gadget_return, gadget_borrow):
     Jumlah_kembali = 0
     for i in range(len(gadget_return)):
         if id_peminjaman == gadget_return[i][1]:
             Jumlah_kembali = Jumlah_kembali + gadget_return[i][3]
 
+    Jumlah_pinjam = 0
     for i in range(len(gadget_borrow)):
         if id_peminjaman == gadget_borrow[i][0]:
             Jumlah_pinjam = gadget_borrow[i][4]
@@ -91,10 +87,11 @@ def tulis_item(Item, i):
 def write_gadget_return_history(id_peminjaman, Tanggal, Jumlah, gadget_return):
     arr = [0 for i in range(4)]
 
-    if len(gadget_return) == 0:
+    if len(gadget_return) == 0 : 
         arr[0] = 1
-    else:
-        arr[0] = (gadget_return[(len(gadget_return)) - 1][0]) + 1
+    else : 
+        index = (len(gadget_return)) - 1
+        arr[0] = (gadget_return[index][0]) + 1
 
     arr[1] = id_peminjaman
     arr[2] = datetime.strptime(Tanggal, '%d/%m/%Y')
@@ -123,18 +120,17 @@ def ubah_data(Item, Jumlah, id_peminjaman, gadget_borrow, gadget):
         gadget_borrow[Index][5] = True
 
 
-def pesan_kesalahan(Tanggal, Jumlah,id_peminjaman):
+def pesan_kesalahan(Tanggal, Jumlah,id_peminjaman, gadget_return, gadget_borrow):
     if (validasi_tanggal(Tanggal)) == False:
         print('Tanggal yang Anda masukan tidak sesuai.')
-        if (validasi_jumlah(Jumlah, id_peminjaman)) == False:
+        if (validasi_jumlah(Jumlah, id_peminjaman, gadget_return, gadget_borrow)) == False:
             print('Jumlah yang Anda masukan tidak sesuai.')
         else:
-            if (validasi_jumlah(Jumlah, id_peminjaman)) == False:
+            if (validasi_jumlah(Jumlah, id_peminjaman, gadget_return, gadget_borrow)) == False:
                 print('Jumlah yang Anda masukan tidak sesuai.')
     else:
-        if (validasi_jumlah(Jumlah, id_peminjaman)) == False:
+        if (validasi_jumlah(Jumlah, id_peminjaman,gadget_return, gadget_borrow)) == False:
             print('Jumlah yang Anda masukan tidak sesuai.')
-
 
 # ALGORITMA UTAMA
 
@@ -162,12 +158,12 @@ def kembalikan(user_now, gadget, gadget_return, gadget_borrow):
             if (validasi_no_item(Item_nomor, arr_id_peminjaman)) :
                 id_peminjaman = arr_id_peminjaman[Item_nomor - 1]
 
-                if (validasi_tanggal(Tanggal)) and (validasi_jumlah(Jumlah, id_peminjaman)):
+                if (validasi_tanggal(Tanggal)) and (validasi_jumlah(Jumlah, id_peminjaman, gadget_return, gadget_borrow)):
 
                     Item = arr_id_item[Item_nomor - 1]
 
-                    write_gadget_return_history(id_peminjaman, Tanggal, Jumlah,
-                                                gadget_return)
+                    write_gadget_return_history(id_peminjaman, Tanggal, Jumlah, gadget_return)
+                    
                     ubah_data(Item, Jumlah, id_peminjaman, gadget_borrow, gadget)
 
                     for i in range(len(gadget)):
@@ -177,7 +173,7 @@ def kembalikan(user_now, gadget, gadget_return, gadget_borrow):
                     print("Item " + str(Nama) + "(x" + str(Jumlah) +
                           ") telah dikembalikan.")
                 else:
-                    pesan_kesalahan(Tanggal, Jumlah, id_peminjaman)
+                    pesan_kesalahan(Tanggal, Jumlah, id_peminjaman, gadget_return, gadget_borrow)
             else :
                 print('Nomor peminjaman yang Anda masukan tidak sesuai.')
 

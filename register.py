@@ -15,6 +15,7 @@ def register(user, user_now):
         is_exist = True
     
     while is_exist==True:
+      print('Username telah ada. Masukkan yang berbeda')
       username = input('Masukan username: ')
       for each in user:
         if username == each[1]:

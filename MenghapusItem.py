@@ -1,11 +1,8 @@
-from load import load_data
+global gadget
+global header_gadget
+global consumable
+global header_consumable
 
-gadget = []
-header_gadget = []
-consumable = []
-header_consumable = []
-load_data(gadget, header_gadget,'./file_csv/gadget.csv')
-load_data(consumable, header_consumable, './file_csv/consumable.csv')
 
 def validasi_role(user_now) :
     if user_now['role'] == "Admin" :
@@ -15,33 +12,32 @@ def validasi_role(user_now) :
 
 def hapus_gadget(gadget,ID):
     count = 0
-    for data in gadget:
-      if data[0] == ID:
-        print("Apakah anda yakin ingin menghapus", data[1], "(Y/N)?")
+    for i in range (len(gadget)):
+      if gadget[i][0] == ID:
+        print("Apakah anda yakin ingin menghapus", gadget[i][1], "(Y/N)?")
         pilihan = input()
         if(pilihan == "Y"):
             print("Item telah berhasil dihapus dari database")
-            gadget.remove(data)
+            gadget.pop(i)
             count += 1
     if count == 0:
         print("Tidak ada item dengan ID tersebut")
 
 def hapus_consumable(consumable,ID):
     count = 0
-    for data in consumable:
-      if data[0] == ID:
-        print("Apakah anda yakin ingin menghapus", data[1], "(Y/N)?")
+    for i in range (len(consumable)):
+      if consumable[i][0] == ID:
+        print("Apakah anda yakin ingin menghapus", consumable[i][1], "(Y/N)?")
         pilihan = input()
         if(pilihan == "Y"):
             print("Item telah berhasil dihapus dari database")
-            consumable.remove(data)
+            consumable.pop(i)
             count += 1
     if count == 0:
         print("Tidak ada item dengan ID tersebut")
 
 def hapusitem(user_now, gadget, consumable) :
-  if validasi_role(user_now) :
-
+  if validasi_role(user_now):
       ID = input("Masukkan ID item: ")
       s = ID
       list(s)
@@ -54,4 +50,4 @@ def hapusitem(user_now, gadget, consumable) :
           elif s[0] == "C":
               hapus_consumable(consumable,ID)
   else :
-      print("Anda tidak dapat mengakses bagian ini.")
+    print("Anda tidak dapat mengakses bagian ini.")

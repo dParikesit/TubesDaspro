@@ -1,13 +1,9 @@
-from load import load_data
 from datetime import datetime 
 
-consumable = []
-consumable_history = []
-header_consumable = []
-header_consumable_history = []
-
-load_data(consumable, header_consumable, './file_csv/consumable.csv')
-load_data(consumable_history, header_consumable_history, './file_csv/consumable_history.csv')
+global consumable
+global consumable_history
+global header_consumable
+global header_consumable_history
 
 def validasi_item(Item) :
     found = False
@@ -48,7 +44,8 @@ def write_consumable_history(Item, Tanggal, Jumlah, id_user, id_item, consumable
     if len(consumable_history) == 0 : 
         arr[0] = 1
     else : 
-        arr[0] = consumable_history[(len(consumable_history)) - 1][0] + 1
+        index = (len(consumable_history)) - 1
+        arr[0] = consumable_history[index][0] + 1
   
     arr[1] = id_user
     arr[2] = Item
@@ -78,7 +75,6 @@ def pesan_kesalahan(Item, Tanggal, Jumlah) :
 # ALGORITMA UTAMA
 
 def minta(user_now, consumable, consumable_history) :
-
   id_user = user_now['id']
 
   if validasi_role(user_now) :

@@ -1,137 +1,94 @@
 from load import load_data
 from datetime import datetime
 
-user=[]
-gadget = []
-gadget_borrow = []
-gadget_return = []
+global user
+global gadget
+global gadget_return
+global gadget_borrow
 
-header_user = []
-header_gadget = []
-header_gadget_borrow = []
-header_gadget_return = []
+global header_user
+global header_gadget
+global header_gadget_return
+global header_gadget_borrow
 
-load_data(gadget, header_gadget, './file_csv/gadget.csv')
-load_data(gadget_return, header_gadget_return, './file_csv/gadget_return_history.csv')
-load_data(gadget_borrow, header_gadget, './file_csv/gadget_borrow_history.csv')
-load_data(user, header_user, './file_csv/user.csv')
+def validasi_role(user_now) :
+    if user_now['role'] == "Admin" :
+      return True
+    else :
+      return False
 
-# def validasi_role(user_now) :
-#     if user_now['role'] == "Admin" :
-#       return True
-#     else :
-#       return False
+gadget_return = sorted(gadget_return, key=lambda x:x[2], reverse=True)
 
-gadget_return = sorted(gadget_return, key=lambda x:x[2])
+def cariIdPeminjam(id_peminjaman):
+  id_peminjam = 0
+  for item in gadget_borrow:
+    if item[0]==id_peminjaman:
+      id_peminjam = item[1]
+  
+  return id_peminjam
 
-print(gadget_return)
+def cariNamaPengambil(id_peminjam):
+  nama = ''
+  for item in user:
+    if item[0]==id_peminjam:
+      nama = item[2]
+  
+  return nama
 
+def cariIdGadget(id_peminjaman):
+  id_gadget = 0
+  for item in gadget_borrow:
+    if item[0]==id_peminjaman:
+      id_gadget = item[2]
+  
+  return id_gadget
 
-# def riwayatkembali():
-#     # if validasi_role(user_now) :
-#         # if (len(gadget_return)>=5): 
-#         #       for z in range(5):  
-                
-#         #         namagadget = 0
-#         #         for i in range(len(gadget)):
-#         #               if (gadget[i][0] == gadget_return[z][1]):
-#         #                     namagadget = i
+def cariNamaGadget(id_gadget):
+  nama = ''
+  for item in gadget:
+    if item[0]==id_gadget:
+      nama = item[1]
+  
+  return nama
 
-#         #         idpinjam = 0
-#         #         for i in range(len(gadget_borrow)):
-#         #               if (gadget_return[i][1] == gadget_borrow[i][0]):
-#         #                     idpinjam = i
+def tampilinsatu (satu):
+  id_peminjaman = satu[1]
+  nama_pengambil = cariNamaPengambil(cariIdPeminjam(id_peminjaman))
+  nama_gadget = cariNamaGadget(cariIdGadget(id_peminjaman))
+  tanggal = datetime.strftime(satu[2], '%d/%m/%Y')
+  jumlah = satu[3]
 
-#         #         namauser = 0
-#         #         for i in range(len(user)):
-#         #               if (user[i][0] ==  [z][1]):
-#         #                     namauser = i
+  print("ID Peminjaman        : " + str(id_peminjaman))
+  print("Nama Pengambil       : " + nama_pengambil)
+  print("Nama Gadget          : " + nama_gadget)
+  print("Tanggal Pengembalian : " + str(tanggal))
+  print("Jumlah               : " + str(jumlah))
+  print()
 
-#         #         print("")
-#         #         print("ID Pengembalian      :", gadget_return[z][0])
-#         #         print("Nama Pengambil       :", user[z][gadget_borrow[idpinjam][1]])
-#         #         print("Nama Gadget          :", gadget[namagadget][1])
-#         #         print("Tanggal Pengembalian :", gadget_return[z][3])
-#         #         print("Jumlah               :", gadget_return[z][4])
-                
-#         #       z += 1
-#         #       nomorlooping = z
-#         #       sisalooping = len(gadget_return) - nomorlooping 
-              
-#         #       while nomorlooping < len(gadget_return):
-#         #         print("")
-#         #         lanjut = input("Apakah mau menampilkan data lebih lanjut? (Y/N) : ")
-#         #         if lanjut == "Y":
-#         #           if (sisalooping>=5):
-#         #             for z in range(5):  
-#         #               namagadget = 0
-#         #               for i in range(len(gadget)):
-#         #                       if (gadget[i][0] == gadget_return[nomorlooping][1]):
-#         #                           namagadget = i
-#         #               namauser = 0
-#         #               for i in range(len(user)):
-#         #                       if (user[i][0] == gadget_return[nomorlooping][1]):
-#         #                           namauser = i
-
-#         #               print("")
-#         #               print("ID Pengembalian      :", gadget_return[nomorlooping][0])
-#         #               print("Nama Pengambil       :", user[namauser][gadget_return[1][1]])
-#         #               print("Nama Gadget          :", gadget[namagadget][1])
-#         #               print("Tanggal Pengembalian :", gadget_return[nomorlooping][3])
-#         #               print("Jumlah               :", gadget_return[nomorlooping][4])
-
-#         #               nomorlooping += 1
-#         #           else:
-#         #             for z in range(sisalooping): 
-#         #               namagadget = 0
-#         #               for i in range(len(gadget)):
-#         #                       if (gadget[i][0] == gadget_return[nomorlooping][1]):
-#         #                           namagadget = i
-#         #               namauser = 0
-#         #               for i in range(len(user)):
-#         #                       if (user[i][0] == gadget_return[nomorlooping][1]):
-#         #                           namauser = i
-
-#         #               print("")
-#         #               print("ID Pengembalian      :", gadget_return[nomorlooping][0])
-#         #               print("Nama Pengambil       :", user[namauser][gadget_return[1][1]])
-#         #               print("Nama Gadget          :", gadget[namagadget][1])
-#         #               print("Tanggal Pengembalian :", gadget_return[nomorlooping][3])
-#         #               print("Jumlah               :", gadget_return[nomorlooping][4])
-#         #               nomorlooping += 1
-#         #           print("")
-#         #         else:
-#         #           break            
-#         else:
-#               for z in range(len(gadget_return)):  
-
-#                     idpinjam = 0
-#                     for i in range(len(gadget_return)):
-#                       for j in range(len(gadget_borrow)):
-#                           if (gadget_return[i][1] == gadget_borrow[j][0]):
-#                                 idpinjam = j
-
-#                     print(idpinjam)
-
-#                     # namagadget = 0
-#                     # for i in range(len(gadget)):
-#                     #       if (gadget[i][0] == gadget_borrow[idpinjam][2]):
-#                     #             namagadget = i
-
-#                     # namauser = 0
-#                     # for i in range(len(user)):
-#                     #       if (user[i][0] == gadget_borrow[idpinjam][1]):
-#                     #             namauser = i
-    
-
-#                     # print("")
-#                     # print("ID Pengembalian      :", gadget_return[z][0])
-#                     # print("Nama Pengambil       :", user[namauser][2])
-#                     # print("Nama Gadget          :", gadget[namagadget][1])
-#                     # print("Tanggal Pengembalian :", gadget_return[z][2])
-#                     # print("Jumlah               :", gadget_return[z][3])
-#         print("")
-#     # else :
-#     #     print("Anda tidak dapat mengakses bagian ini.")
-
-# riwayatkembali()
+def riwayatkembali(user_now):
+  if validasi_role(user_now):
+    if(len(gadget_return)>=5):
+      for i in range(5):
+        tampilinsatu(gadget_return[i])
+      nomorlooping = i+1
+      sisalooping = len(gadget_return) - nomorlooping
+      while(nomorlooping<=len(gadget_return)):
+        print("")
+        lanjut = input("Apakah mau menampilkan data lebih lanjut? (Y/N) : ")
+        if lanjut == "Y":
+          if (sisalooping>=5):
+            for z in range(5):
+              tampilinsatu(gadget_return[nomorlooping])
+              nomorlooping += 1
+          else:
+            for z in range(sisalooping):
+              tampilinsatu(gadget_return[nomorlooping])
+            break
+        else:
+          break
+        sisalooping = len(gadget_return) - nomorlooping
+    else:
+      for i in range(len(gadget_return)):
+        tampilinsatu(gadget_return[i])
+  else :
+    print("Anda tidak dapat mengakses bagian ini.")
