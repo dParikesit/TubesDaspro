@@ -1,15 +1,5 @@
-from load import load_data
 from datetime import datetime
-
-global user
-global gadget
-global gadget_return
-global gadget_borrow
-
-global header_user
-global header_gadget
-global header_gadget_return
-global header_gadget_borrow
+from variabel import choice,user,gadget,gadget_borrow,gadget_return,consumable,consumable_history,header_user,header_gadget,header_gadget_borrow,header_gadget_return,header_consumable,header_consumable_history,user_now
 
 def validasi_role(user_now) :
     if user_now['role'] == "Admin" :

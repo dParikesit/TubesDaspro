@@ -1,11 +1,5 @@
 from datetime import datetime
-
-global gadget
-global gadget_borrow
-global gadget_return
-global header_gadget
-global header_gadget_borrow
-global header_gadget_return
+from variabel import choice,user,gadget,gadget_borrow,gadget_return,consumable,consumable_history,header_user,header_gadget,header_gadget_borrow,header_gadget_return,header_consumable,header_consumable_history,user_now
 
 
 def validasi_role(user_now):
@@ -78,6 +72,7 @@ def id_item_user(id_user, gadget_borrow):
 
 
 def tulis_item(Item, i):
+    IdItem = 0
     for k in range(len(gadget)):
         if gadget[k][0] == Item:
             IdItem = k
@@ -166,6 +161,7 @@ def kembalikan(user_now, gadget, gadget_return, gadget_borrow):
                     
                     ubah_data(Item, Jumlah, id_peminjaman, gadget_borrow, gadget)
 
+                    Nama = ''
                     for i in range(len(gadget)):
                         if Item == gadget[i][0]:
                             Nama = gadget[i][1]

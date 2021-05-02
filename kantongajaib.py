@@ -13,32 +13,11 @@ from MemintaConsumable import minta                     #F10
 from RiwayatPinjam import riwayatpinjam                 #F11
 from RiwayatKembali import riwayatkembali               #F12
 from RiwayatAmbil import riwayatambil                   #F13
-from load import loader                                 #F14
+# from load import loader                                 #F14, dipakai di file variabel.py
 from save import save                                   #F15
 from help import help                                   #F16
 from exit import exit                                   #F17
-
-
-
-# Bikin variabel buat storing data
-choice = ''
-user=[]
-gadget=[]
-gadget_borrow = []
-gadget_return = []
-consumable = []
-consumable_history = []
-header_user = []
-header_gadget = []
-header_gadget_borrow = []
-header_gadget_return = []
-header_consumable = []
-header_consumable_history = []
-user_now = {
-  "id":-1,
-  "role":'',
-  "name":''
-}
+from variabel import choice,user,gadget,gadget_borrow,gadget_return,consumable,consumable_history,header_user,header_gadget,header_gadget_borrow,header_gadget_return,header_consumable,header_consumable_history,user_now
 
 
 def pilihan_program(choice) :
@@ -74,8 +53,6 @@ def pilihan_program(choice) :
       exit(user, gadget, gadget_borrow, gadget_return, consumable, consumable_history, header_user, header_gadget, header_gadget_borrow, header_gadget_return, header_consumable, header_consumable_history)
   else :
     print("Pilihan tidak ada dalam sistem kantongajaib")
-
-loader(user, gadget, gadget_borrow, gadget_return,consumable, consumable_history, header_user, header_gadget,header_gadget_borrow, header_gadget_return, header_consumable,header_consumable_history)
 
 user_now['id'], user_now['role'], user_now['name'] = login(user)
 print()

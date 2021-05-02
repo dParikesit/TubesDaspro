@@ -78,7 +78,7 @@ def loader(user, gadget, gadget_borrow, gadget_return,consumable, consumable_his
     batch_load(path_link, user, gadget, gadget_borrow, gadget_return, consumable, consumable_history, header_user, header_gadget,  header_gadget_borrow, header_gadget_return, header_consumable,  header_consumable_history)
 
     print('===== Selamat datang di "Kantong Ajaib" ! =====')
-    print()
+
   else:
     print('Tidak ada nama folder yang diberikan')
     print('Usage: python kantongajaib.py <nama_folder>')

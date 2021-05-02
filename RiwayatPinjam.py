@@ -1,4 +1,7 @@
 from datetime import datetime
+from variabel import choice,user,gadget,gadget_borrow,gadget_return,consumable,consumable_history,header_user,header_gadget,header_gadget_borrow,header_gadget_return,header_consumable,header_consumable_history,user_now
+
+gadget_borrow = sorted(gadget_borrow, key=lambda x:x[3], reverse=True)
 
 def validasi_role(user_now) :
     if user_now['role'] == "Admin" :
@@ -24,19 +27,8 @@ def cariSatu(satu):
 #   cariSatu(gadget_borrow[i])
 
 def riwayatpinjam(user_now):
-  global user
-  global gadget
-  global gadget_return
-  global gadget_borrow
 
-  global header_user
-  global header_gadget
-  global header_gadget_return
-  global header_gadget_borrow
-
-  gadget_borrow = sorted(gadget_borrow, key=lambda x:x[3], reverse=True)
-
-  if validasi_role(user_now):
+    if validasi_role(user_now):
         if (len(gadget_borrow)>=5):
               for z in range(5):
 

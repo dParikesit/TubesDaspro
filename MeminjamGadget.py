@@ -1,14 +1,5 @@
 from datetime import datetime
-
-global user
-global gadget
-global gadget_borrow
-global gadget_return
-global header_user
-global header_gadget
-global header_gadget_borrow
-global header_gadget_return
-
+from variabel import choice,user,gadget,gadget_borrow,gadget_return,consumable,consumable_history,header_user,header_gadget,header_gadget_borrow,header_gadget_return,header_consumable,header_consumable_history,user_now
 
 def validasi_item(Item) :
     found = False
