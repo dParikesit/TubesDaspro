@@ -1,5 +1,5 @@
 from datetime import datetime
-from variabel import choice,user,gadget,gadget_borrow,gadget_return,consumable,consumable_history,header_user,header_gadget,header_gadget_borrow,header_gadget_return,header_consumable,header_consumable_history,user_now
+from variabel import gadget,gadget_borrow
 
 def validasi_item(Item) :
     found = False
