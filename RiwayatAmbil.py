@@ -104,3 +104,4 @@ def riwayatambil(user_now):
         print("")
     else :
         print("Anda tidak dapat mengakses bagian ini.")
+ 

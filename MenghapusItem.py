@@ -8,7 +8,7 @@ def validasi_role(user_now) :
 def hapus_gadget(gadget,ID):
     count = 0
     for i in range (len(gadget)):
-      if gadget[i][0] == ID:
+      if (gadget[i][0] == ID):
         print("Apakah anda yakin ingin menghapus", gadget[i][1], "(Y/N)?")
         pilihan = input()
         if(pilihan == "Y"):

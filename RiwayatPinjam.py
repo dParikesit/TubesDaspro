@@ -112,4 +112,4 @@ def riwayatpinjam(user_now):
                       print("Jumlah               :", gadget_borrow[z][4])
         print("")
     else :
-        print("Anda tidak dapat mengakses bagian ini.")
+        print("Anda tidak dapat mengakses bagian ini")
